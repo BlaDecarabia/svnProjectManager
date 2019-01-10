@@ -1,0 +1,23 @@
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+#SVN根路径
+REPOS="$1"
+#SVN版本号
+REV="$2"
+
+SVNLOOK=/usr/bin/svnlook
+JAVA=/usr/bin/java
+
+#作者
+AUTHOR=$($SVNLOOK author -r "$REV" "$REPOS")
+#日志文件名
+LOGFILE="$REV"-"$AUTHOR"
+#提交说明
+COMMITMSG=$($SVNLOOK log -r "$REV" "$REPOS")
+#提交时间
+COMMITDATE=$($SVNLOOK date -r "$REV" "$REPOS")
+#提交内容
+$SVNLOOK changed -r "$REV" "$REPOS" >> /home/zjipst/svnProgram/tmpFile/"$LOGFILE"
+
+java -jar /home/zjipst/svnProgram/program/svnPostCommitProgram.jar $AUTHOR $REV "${COMMITMSG}" $LOGFILE "${COMMITDATE}"
