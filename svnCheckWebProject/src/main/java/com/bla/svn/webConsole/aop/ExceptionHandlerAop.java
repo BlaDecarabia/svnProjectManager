@@ -27,6 +27,7 @@ public class ExceptionHandlerAop {
 
     @ExceptionHandler(value = Throwable.class)
     public JSONObject operationError(Exception exception) {
+
         JSONObject object = createResp(SystemConstants.CODE_FAIL, "未知系统异常：" + exception.toString());
         logger.error("未知系统异常：", exception);
         return object;
