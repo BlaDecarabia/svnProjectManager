@@ -1,0 +1,80 @@
+<!--
+ @Author: 张巧
+ @Description: 
+ @Date: Created in 2019/1/14 10:39
+ @Modified By:
+ @ModifiedDate: 
+ @ModifiedDescription
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/lib/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/lib/easyui/themes/icon.css">
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/lib/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/static/common/request.js"></script>
+    <script type="text/javascript" src="/static/index.js"></script>
+</head>
+<body class="easyui-layout">
+<div data-options="region:'north'" style="height: 50px;">
+    <div style="display: inline">
+        <h1 style="display: inline">版本提交中心</h1>
+        <h2 style="display: inline" id="modeStr"></h2>
+    </div>
+    <div style="display: inline; float: right; height: 100%">
+        <div style="display: inline">当前用户：</div>
+        <div style="display: inline" id="currentUser"></div>
+        <div></div>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-reload'" href="#" style="width: 100px;display: inline" onclick="openSelectModeDialog()">切换环境</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-no'" href="#" style="width: 100px;display: inline" onclick="logout()">退出登录</a>
+    </div>
+</div>
+<div data-options="region:'center'" style="padding:5px;background:#eee;">
+    <table id="commitLogTable" class="easyui-datagrid"
+           data-options="pagination:true,url:'/data/commitLogList',queryParams:{mode:''},rownumbers:true,singleSelect:true,title:'SVN提交日志'"
+           style="width: 100%;height: 45%">
+        <thead>
+        <tr>
+            <th data-options="field:'UUID',hidden:true">UUID</th>
+            <th data-options="field:'VERSIONID'">版本号</th>
+            <th data-options="field:'COMMITMSG'">提交信息</th>
+            <th data-options="field:'COMMITDATE'">提交日期</th>
+            <th data-options="field:'option',width:250,formatter:formatterCommitLogOption">操作</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div style="margin: 10px"></div>
+
+    <table id="commitInfoTable" class="easyui-datagrid"
+           data-options="pagination:true,url:'/data/commitInfoList',queryParams:{mode:''},rownumbers:true,singleSelect:true,title:'提交发布日志'"
+           style="width: 100%;height: 45%;">
+        <thead>
+        <tr>
+            <th data-options="field:'UUID',hidden:true">UUID</th>
+            <th data-options="field:'COMMITUUID',hidden:true">COMMITUUID</th>
+            <th data-options="field:'VERSIONID'">版本号</th>
+            <th data-options="field:'COMMITMSG'">提交信息</th>
+            <th data-options="field:'COMMITDATE'">提交日期</th>
+            <th data-options="field:'PREPAREDATE'">提交准备发布日期</th>
+            <th data-options="field:'option',width:250,formatter:formatterCommitInfoOption">操作</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<div id="selectModeDialog" class="easyui-dialog" title="环境选择" style="width:400px;height:200px;text-align:center;padding: 5px"
+     data-options="modal:true">
+    <div><h1>请选代码提交环境</h1></div>
+    <a class="easyui-linkbutton" href="#" style="width: 100%" onclick="openUatHtml()">测试环境</a>
+    <div style="margin: 10px; width: 100%"></div>
+    <a class="easyui-linkbutton" href="#" style="width: 100%" onclick="openScHtml()">生产环境</a>
+</div>
+
+<form action="/logout" method="post" id="logoutForm"></form>
+</body>
+</html>

@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 1800s
+mybatis:
+  mapperLocations: classpath*:com/bla/svn/webConsole/dao/**/mapper/*.xml
+pagehelper:
+  helper-dialect: oracle
+  params: count=countSql
+spring:
+  datasource:
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@192.168.3.2:1521:zjipst
+    username: svn
+    password: oracle
+    type: com.alibaba.druid.pool.DruidDataSource

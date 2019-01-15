@@ -11,6 +11,7 @@
     <modules>
         <module>svnPostCommitProgram</module>
         <module>svnDownloadProgram</module>
+        <module>svnCheckWebProject</module>
     </modules>
 
 

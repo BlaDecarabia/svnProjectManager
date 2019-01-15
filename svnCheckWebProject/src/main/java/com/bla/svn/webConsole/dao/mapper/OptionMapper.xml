@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bla.svn.webConsole.dao.OptionDao">
+    <insert id="insertUatCommitInfo">
+        insert into SVN_COMMIT_UAT (uuid, commit_uuid, commit_user, commit_date, update_user, update_time)
+          values (sys_guid(), #{uuid}, #{user}, sysdate, #{user}, sysdate)
+    </insert>
+
+
+    <update id="updateCommitLogUat">
+        update SVN_COMMIT_LOG set IS_UAT_COMMIT=#{flag}, UAT_COMMIT_DATE=sysdate where UUID=#{uuid}
+    </update>
+
+    <insert id="insertScCommitInfo">
+        insert into SVN_COMMIT_SC (uuid, commit_uuid, commit_user, commit_date, update_user, update_time)
+          values (sys_guid(), #{uuid}, #{user}, sysdate, #{user}, sysdate)
+    </insert>
+
+    <update id="updateCommitLogSc">
+        update SVN_COMMIT_LOG set IS_SC_COMMIT=#{flag}, SC_COMMIT_DATE=sysdate where UUID=#{uuid}
+    </update>
+
+    <update id="updateUatCommitInfo">
+        update SVN_COMMIT_UAT set FLAG=#{flag}, UPDATE_USER=#{user}, UPDATE_TIME=sysdate where UUID=#{uuid}
+    </update>
+
+    <update id="updateScCommitInfo">
+        update SVN_COMMIT_SC set FLAG=#{flag}, UPDATE_USER=#{user}, UPDATE_TIME=sysdate where UUID=#{uuid}
+    </update>
+</mapper>
