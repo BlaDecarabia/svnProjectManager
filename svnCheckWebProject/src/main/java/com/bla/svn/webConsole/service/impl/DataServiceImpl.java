@@ -70,4 +70,11 @@ public class DataServiceImpl implements DataService {
 
         return result;
     }
+
+    @Override
+    public JSONObject getFileList(String version) {
+        JSONObject result = new JSONObject();
+        result.put("rows", commonDao.getFileList(version));
+        return result;
+    }
 }

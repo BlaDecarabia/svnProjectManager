@@ -33,4 +33,7 @@
           and a.flag='Y'
           and a.COMMIT_USER=#{user}
     </select>
+    <select id="getFileList" resultType="java.util.Map">
+        select file_type TYPE, file_url FILEURL from SVN_COMMIT_FILE where version_id=#{version}
+    </select>
 </mapper>

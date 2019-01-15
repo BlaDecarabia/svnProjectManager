@@ -1,5 +1,6 @@
 package com.bla.svn.webConsole.dao;
 
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface DataDao {
     List<Map<String, String>> getUatCommitInfoList(String user);
 
     List<Map<String, String>> getScCommitInfoList(String user);
+
+    List<Map<String, String>> getFileList(String version);
 
 }

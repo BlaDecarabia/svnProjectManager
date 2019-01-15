@@ -78,12 +78,21 @@ function reloadTable() {
     $("#commitInfoTable").datagrid("reload");
 }
 
+function openFileListDialog(version) {
+    $("#fileListTable").datagrid("options").queryParams.version = version;
+    $("#fileListTable").datagrid("reload");
+
+    $("#fileDialog").dialog("open");
+}
+
 function formatterCommitLogOption(value, row, index) {
-    var btn = "<a href='#' onclick='commitPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\")'>提交发布</a>&nbsp;&nbsp;";
+    var btn = "<a href='#' onclick='commitPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\")'>提交发布</a>&nbsp;&nbsp;"
+            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\")'>查看文件</a>";
     return btn;
 }
 
 function formatterCommitInfoOption(value, row, index) {
-    var btn = "<a href='#' onclick='cancelPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\",\"" + row.COMMITUUID + "\")'>取消发布</a>&nbsp;&nbsp;";
+    var btn = "<a href='#' onclick='cancelPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\",\"" + row.COMMITUUID + "\")'>取消发布</a>&nbsp;&nbsp;"
+            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\")'>查看文件</a>";
     return btn;
 }

@@ -40,4 +40,8 @@ public class DataController {
         return dataService.getCommitInfoList(page, rows, mode, user);
     }
 
+    @RequestMapping("/fileList")
+    public JSONObject fileList(String version) {
+        return dataService.getFileList(version);
+    }
 }

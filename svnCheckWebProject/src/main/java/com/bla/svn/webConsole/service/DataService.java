@@ -15,4 +15,6 @@ public interface DataService {
     JSONObject getCommitLogList(int page, int rows, String mode, String user);
 
     JSONObject getCommitInfoList(int page, int rows, String mode, String user);
+
+    JSONObject getFileList(String version);
 }

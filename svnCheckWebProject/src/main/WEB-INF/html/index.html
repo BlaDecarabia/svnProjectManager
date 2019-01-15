@@ -75,6 +75,21 @@
     <a class="easyui-linkbutton" href="#" style="width: 100%" onclick="openScHtml()">生产环境</a>
 </div>
 
+<div id="fileDialog" class="easyui-dialog" title="文件列表" style="width: 80%; height: 400px;text-align: center"
+     data-options="modal:true,closed:true">
+    <table id="fileListTable" class="easyui-datagrid"
+           data-options="url:'/data/fileList',queryParams:{version:''},rownumbers:true,singleSelect:true"
+           style="width: 100%;height: 100%;">
+        <thead>
+        <tr>
+            <th data-options="field:'FILEURL'">文件路径</th>
+            <th data-options="field:'TYPE'">操作类型</th>
+        </tr>
+        </thead>
+    </table>
+
+</div>
+
 <form action="/logout" method="post" id="logoutForm"></form>
 </body>
 </html>
