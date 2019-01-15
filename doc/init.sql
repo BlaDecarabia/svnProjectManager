@@ -24,3 +24,25 @@ create table SVN_COMMIT_FILE
   file_url   VARCHAR2(200),
   file_type  CHAR(2)
 );
+
+create table SVN_COMMIT_UAT
+(
+  uuid        VARCHAR2(32) primary key,
+  commit_uuid VARCHAR2(32),
+  commit_user VARCHAR2(20),
+  commit_date DATE,
+  update_user VARCHAR2(20),
+  update_time DATE,
+  flag        CHAR(1) default 'Y'
+);
+
+create table SVN_COMMIT_SC
+(
+  uuid        VARCHAR2(32) primary key,
+  commit_uuid VARCHAR2(32),
+  commit_user VARCHAR2(20),
+  commit_date DATE,
+  update_user VARCHAR2(20),
+  update_time DATE,
+  flag        CHAR(1) default 'Y'
+);
