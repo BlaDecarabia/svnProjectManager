@@ -26,6 +26,10 @@ public class Main {
         String commitMsg = args[2];
         String commitFile = args[3];
         String commitDate = args[4];
+        String reposPath = args[5];
+
+        String[] reposPathArray = reposPath.split("/");
+        String repos = reposPathArray[reposPathArray.length - 1];
 
         Class.forName(PropertiesUtil.getValueByKey("jdbcDriver"));
 
@@ -41,6 +45,7 @@ public class Main {
             insertCommitInfoPs.setString(2, commitMsg);
             insertCommitInfoPs.setString(3, author);
             insertCommitInfoPs.setString(4, commitDate);
+            insertCommitInfoPs.setString(5, repos);
 
             //插入文件内信息
             String line;
@@ -53,6 +58,7 @@ public class Main {
                 insertCommitFilePs.setString(1, versionId);
                 insertCommitFilePs.setString(2, fileUrl);
                 insertCommitFilePs.setString(3, fileType);
+                insertCommitFilePs.setString(4, repos);
 
                 insertCommitFilePs.addBatch();
             }
