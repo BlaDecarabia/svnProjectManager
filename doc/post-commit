@@ -20,4 +20,4 @@ COMMITDATE=$($SVNLOOK date -r "$REV" "$REPOS")
 #提交内容
 $SVNLOOK changed -r "$REV" "$REPOS" >> /home/zjipst/svnProgram/tmpFile/"$LOGFILE"
 
-java -jar /home/zjipst/svnProgram/program/svnPostCommitProgram.jar $AUTHOR $REV "${COMMITMSG}" $LOGFILE "${COMMITDATE}"
+java -jar /home/zjipst/svnProgram/program/svnPostCommitProgram.jar $AUTHOR $REV "${COMMITMSG}" $LOGFILE "${COMMITDATE}" "${REOPS}"
