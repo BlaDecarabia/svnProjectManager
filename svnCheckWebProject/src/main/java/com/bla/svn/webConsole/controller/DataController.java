@@ -41,7 +41,7 @@ public class DataController {
     }
 
     @RequestMapping("/fileList")
-    public JSONObject fileList(String version) {
-        return dataService.getFileList(version);
+    public JSONObject fileList(String version, String reposName) {
+        return dataService.getFileList(version, reposName);
     }
 }

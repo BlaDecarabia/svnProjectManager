@@ -26,6 +26,7 @@ public class OptionController {
     public JSONObject commitPrepare(@RequestBody JSONObject param) {
         String mode = param.getString("mode");
         String uuid = param.getString("uuid");
+        String system = param.getString("system");
 
         return optionService.commitPrepare(mode, uuid);
     }

@@ -72,9 +72,9 @@ public class DataServiceImpl implements DataService {
     }
 
     @Override
-    public JSONObject getFileList(String version) {
+    public JSONObject getFileList(String version, String reposName) {
         JSONObject result = new JSONObject();
-        result.put("rows", commonDao.getFileList(version));
+        result.put("rows", commonDao.getFileList(version, reposName));
         return result;
     }
 }

@@ -78,8 +78,9 @@ function reloadTable() {
     $("#commitInfoTable").datagrid("reload");
 }
 
-function openFileListDialog(version) {
+function openFileListDialog(version, reposName) {
     $("#fileListTable").datagrid("options").queryParams.version = version;
+    $("#fileListTable").datagrid("options").queryParams.reposName = reposName;
     $("#fileListTable").datagrid("reload");
 
     $("#fileDialog").dialog("open");
@@ -87,12 +88,12 @@ function openFileListDialog(version) {
 
 function formatterCommitLogOption(value, row, index) {
     var btn = "<a href='#' onclick='commitPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\")'>提交发布</a>&nbsp;&nbsp;"
-            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\")'>查看文件</a>";
+            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\",\"" + row.REPOSNAME + "\")'>查看文件</a>";
     return btn;
 }
 
 function formatterCommitInfoOption(value, row, index) {
     var btn = "<a href='#' onclick='cancelPrepare(\"" + ENV_MODE + "\",\"" + row.UUID + "\",\"" + row.COMMITUUID + "\")'>取消发布</a>&nbsp;&nbsp;"
-            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\")'>查看文件</a>";
+            + "<a href='#' onclick='openFileListDialog(\"" + row.VERSIONID + "\",\"" + row.REPOSNAME + "\")'>查看文件</a>";
     return btn;
 }

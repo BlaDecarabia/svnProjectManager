@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bla.svn.webConsole.dao.DataDao">
     <select id="getUatCommitLogList" resultType="java.util.Map">
-        select UUID, VERSION_ID VERSIONID, COMMIT_MSG COMMITMSG, COMMIT_DATE COMMITDATE from SVN.SVN_COMMIT_LOG where COMMIT_USER=#{user} and is_uat_commit='N'
+        select UUID, VERSION_ID VERSIONID, COMMIT_MSG COMMITMSG, COMMIT_DATE COMMITDATE, REPOS_NAME REPOSNAME from SVN.SVN_COMMIT_LOG where COMMIT_USER=#{user} and is_uat_commit='N'
     </select>
 
     <select id="getScCommitLogList" resultType="java.util.Map">
-        select UUID, VERSION_ID VERSIONID, COMMIT_MSG COMMITMSG, COMMIT_DATE COMMITDATE from SVN.SVN_COMMIT_LOG where COMMIT_USER=#{user} and is_sc_commit='N'
+        select UUID, VERSION_ID VERSIONID, COMMIT_MSG COMMITMSG, COMMIT_DATE COMMITDATE, REPOS_NAME REPOSNAME from SVN.SVN_COMMIT_LOG where COMMIT_USER=#{user} and is_sc_commit='N'
     </select>
     <select id="getUatCommitInfoList" resultType="java.util.Map">
         select a.UUID,
@@ -14,7 +14,8 @@
               to_char(a.COMMIT_DATE, 'yyyy-mm-dd hh24:mi:ss') PREPAREDATE,
               b.VERSION_ID VERSIONID,
               b.COMMIT_MSG COMMITMSG,
-              b.COMMIT_DATE COMMITDATE
+              b.COMMIT_DATE COMMITDATE,
+              b.REPOS_NAME REPOSNAME
           from SVN_COMMIT_UAT a, SVN_COMMIT_LOG b
           where a.COMMIT_UUID=b.UUID
           and a.flag='Y'
@@ -27,13 +28,14 @@
               to_char(a.COMMIT_DATE, 'yyyy-mm-dd hh24:mi:ss') PREPAREDATE,
               b.VERSION_ID VERSIONID,
               b.COMMIT_MSG COMMITMSG,
-              b.COMMIT_DATE COMMITDATE
+              b.COMMIT_DATE COMMITDATE,
+              b.REPOS_NAME REPOSNAME
           from SVN_COMMIT_SC a, SVN_COMMIT_LOG b
           where a.COMMIT_UUID=b.UUID
           and a.flag='Y'
           and a.COMMIT_USER=#{user}
     </select>
     <select id="getFileList" resultType="java.util.Map">
-        select file_type TYPE, file_url FILEURL from SVN_COMMIT_FILE where version_id=#{version}
+        select file_type TYPE, file_url FILEURL from SVN_COMMIT_FILE where version_id=#{version} and repos_name=#{reposName,jdbcType=VARCHAR}
     </select>
 </mapper>
