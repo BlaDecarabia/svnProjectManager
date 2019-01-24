@@ -51,9 +51,9 @@ public class SvnManager {
      * @throws IOException
      * @throws SVNException
      */
-    public void downloadFile(String svnFileUrl, int version) throws IOException, SVNException {
-        String svnUrl = PropertiesUtil.getValueByKey("svnUrl") + svnFileUrl;
-        String filePath = PropertiesUtil.getValueByKey("projectBasePath") + svnFileUrl.substring("trunk".length());
+    public void downloadFile(String svnFileUrl, int version, String respName, String mode) throws IOException, SVNException {
+        String svnUrl = PropertiesUtil.getValueByKey("svnUrl") + "/" + respName + "/" + svnFileUrl;
+        String filePath = PropertiesUtil.getValueByKey("projectBasePath") + "/" + mode + "/" + respName + "/" + svnFileUrl.substring("trunk".length());
 
         if (this.svnUpdateClient == null) {
             initSvnUpdateClient();

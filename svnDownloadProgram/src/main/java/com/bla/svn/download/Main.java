@@ -24,7 +24,8 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, SVNException {
         String sql;
-
+        String program;
+        String mode;
         logger.info("测试日志");
 
         try (Scanner scanner = new Scanner(System.in)) {
@@ -33,15 +34,27 @@ public class Main {
                 String codeType = scanner.nextLine();
                 if ("1".equals(codeType)) {
                     sql = PropertiesUtil.getValueByKey("uatCodeSql");
+                    mode = "uat";
                     break;
                 } else if ("2".equals(codeType)) {
                     sql = PropertiesUtil.getValueByKey("scCodeSql");
+                    mode = "sc";
                     break;
                 } else {
                     System.out.println("请输入正确的版本（1.测试环境；2.生产环境）：");
                 }
             }
 
+            System.out.println("请输入需要发布的项目：");
+            while (true) {
+                program = scanner.nextLine();
+                if (null == program || "".equals(program)) {
+                    System.out.println("请输入需要发布的项目（非空）：");
+                } else {
+                    sql = sql.replaceAll(":program", program);
+                    break;
+                }
+            }
         }
 
         Class.forName(PropertiesUtil.getValueByKey("jdbcDriver"));
@@ -57,7 +70,7 @@ public class Main {
 
                 if ("U".equals(fileType) || "A".equals(fileType)) {//更新或新增代码
                     logger.info("下载文件：" + fileUrl + "；版本号：" + version);
-                    svnManager.downloadFile(fileUrl, version);
+                    svnManager.downloadFile(fileUrl, version, program, mode);
                 } else if ("D".equals(fileType)) { //删除代码
                     logger.info("删除文件：" + fileUrl + "；版本号：" + version);
                     svnManager.deleteFile(fileUrl);
