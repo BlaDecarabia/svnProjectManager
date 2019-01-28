@@ -63,7 +63,9 @@ public class SvnManager {
         SVNURL url = SVNURL.parseURIEncoded(svnUrl);
         File destFile = new File(filePath);
 
-        this.svnUpdateClient.doExport(url, destFile, svnRevision, svnRevision, SVNWCContext.SVNEolStyle.Native.toString(), true, SVNDepth.EMPTY);
+        if (!destFile.exists() || !destFile.isDirectory()) {
+            this.svnUpdateClient.doExport(url, destFile, svnRevision, svnRevision, SVNWCContext.SVNEolStyle.Native.toString(), true, SVNDepth.EMPTY);
+        }
     }
 
     public void deleteFile(String svnFileUrl) throws IOException {

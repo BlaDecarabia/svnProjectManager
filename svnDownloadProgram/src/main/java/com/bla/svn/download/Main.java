@@ -24,6 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, IOException, SQLException, SVNException {
         String sql;
+        String updateSql;
         String program;
         String mode;
         logger.info("测试日志");
@@ -34,10 +35,12 @@ public class Main {
                 String codeType = scanner.nextLine();
                 if ("1".equals(codeType)) {
                     sql = PropertiesUtil.getValueByKey("uatCodeSql");
+                    updateSql = PropertiesUtil.getValueByKey("updateUatCommitSql");
                     mode = "uat";
                     break;
                 } else if ("2".equals(codeType)) {
                     sql = PropertiesUtil.getValueByKey("scCodeSql");
+                    updateSql = PropertiesUtil.getValueByKey("updateScCommitSql");
                     mode = "sc";
                     break;
                 } else {
@@ -62,7 +65,11 @@ public class Main {
 
         try (Connection conn = DriverManager.getConnection(PropertiesUtil.getValueByKey("jdbcUrl"), PropertiesUtil.getValueByKey("jdbcUser"), PropertiesUtil.getValueByKey("jdbcPwd"));
              PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+             ResultSet rs = ps.executeQuery();
+             PreparedStatement updatePs = conn.prepareStatement(updateSql)) {
+
+            conn.setAutoCommit(false);
+
             while (rs.next()) {
                 int version = rs.getInt("VERSION_ID");
                 String fileUrl = rs.getString("FILE_URL");
@@ -76,6 +83,9 @@ public class Main {
                     svnManager.deleteFile(fileUrl);
                 }
             }
+
+            updatePs.execute();
+            conn.commit();
         }
 
     }
